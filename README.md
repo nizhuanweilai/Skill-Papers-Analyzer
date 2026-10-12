@@ -105,30 +105,29 @@ AI 会按 `SKILL.md` 的流程执行：读取 PDF → 逐列提取 → 生成 Ex
 010-NIPS-2024-SOFTS Efficient Multivariate Time Series Forecasting with Series-Core Fusion.pdf
 ```
 
-**输出**：`examples/论文信息表_20261009.xlsx`（本仓库已附上这份真实测试输出，3 篇论文 × 14 列、中英双语两行表头，可直接打开查看）。其中一行的缩略版：
+**输出**：一张 15 列的 `.xlsx`，3 篇论文各占一行。其中一行的缩略版：
 
 | 论文标题 | 发表年份 | 发表期刊 | 链接 | 开源代码 | 数据集链接 |
 |---|---|---|---|---|---|
 | Time Series Forecasting via Direct Per-Step Probability Distribution Modeling | 2026 | AAAI | https://arxiv.org/abs/2511.23260 | https://github.com/leonardokong486/interPDN | ETTh1, ETTh2, ETTm1, ETTm2, Electricity, Weather, Traffic, Exchange-rate, Illness |
 
-完整 14 列内容请打开示例 Excel 查看。
+完整 15 列内容在你实际运行技能时生成。
 
 ## 项目结构
 
 ```
 .
 ├── README.md                        # 本文档
-├── Papers-Analyzer/           # 技能本体（可独立分发/开源）
-│   ├── SKILL.md                     # 技能定义与完整工作流程
-│   └── agents/
-│       └── openai.yaml             # Agent 接口声明
-└── examples/
-    └── 论文信息表_20261009.xlsx     # 真实测试输出示例（3 篇论文）
+├── LICENSE                          # MIT
+└── Papers-Analyzer/                 # 技能本体（可独立分发/开源）
+    ├── SKILL.md                     # 技能定义与完整工作流程
+    └── agents/
+        └── openai.yaml              # Agent 接口声明
 ```
 
 ## 测试与验证
 
-- **功能测试**：用 3 篇不同主题的论文（AAAI 2026 概率分布建模 / NeurIPS 2024 时间戳鲁棒预测 / NeurIPS 2024 序列核融合）完整走了一遍流程，验证了中英双语两行表头、14 列 schema、会议名提取、论文链接列（arXiv 编号构造标准链接）、代码链接提取、数据集名称列表、第 13/14 列（未来方向 vs 可提出创新点）的分工；
+- **功能测试**：用 3 篇不同主题的论文（AAAI 2026 概率分布建模 / NeurIPS 2024 时间戳鲁棒预测 / NeurIPS 2024 序列核融合）完整走了一遍流程，验证了中英双语两行表头、15 列 schema、会议名提取、论文链接列（arXiv 编号构造标准链接）、代码链接提取、数据集名称列表、第 14/15 列（未来方向 vs 可提出创新点）的分工；
 - **结构校验**：`python quick_validate.py Papers-Analyzer` → `Skill is valid!`（通过）。
 
 ## License
