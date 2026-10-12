@@ -48,7 +48,7 @@ Papers-Analyzer 把这个动作标准化：固定 15 列 schema、一行一篇�
 
 本项目是一个 **AI 技能（Skill）**，不是命令行工具，不需要 `pip install`，也不需要 Git：
 
-1. 把整个 `Papers-Analyzer/` 文件夹复制到你的 AI 助手所支持的技能目录下（例如豆包的 `.user_skills/` 目录，或其他支持 Skill 机制的平台的对应目录）；
+1. 把整个 `Papers-Analyzer/` 文件夹复制到你的 AI 助手所支持的技能目录下（ `.user_skills/` 目录，或其他支持 Skill 机制的平台的对应目录）；
 2. 运行环境需要 **Python 3.8+**，并安装 `openpyxl`（写 Excel）以及 `pdfplumber` 或 `PyMuPDF`（提取 PDF 文本），供 AI 生成表格时使用：
 
    ```bash
@@ -95,23 +95,6 @@ AI 会按 `SKILL.md` 的流程执行：读取 PDF → 逐列提取 → 生成 Ex
 
 **输出**：一个 `.xlsx` 文件，中英双语两行表头加粗、冻结前两行、单元格自动换行，每篇论文一行。中文提问时文件名为 `论文信息表_YYYYMMDD.xlsx`；英文提问时为 `paper_info_table_YYYYMMDD.xlsx`。
 
-## 输入输出示例
-
-**输入**（测试时使用的 3 篇论文）：
-
-```
-001-AAAI-2026-Time Series Forecasting via Direct Per-Step Probability Distribution Modeling.pdf
-002-NIPS-2024-Rethinking the Power of Timestamps for Robust Time Series Forecasting A Global-Local Fusion Perspective.pdf
-010-NIPS-2024-SOFTS Efficient Multivariate Time Series Forecasting with Series-Core Fusion.pdf
-```
-
-**输出**：一张 15 列的 `.xlsx`，3 篇论文各占一行。其中一行的缩略版：
-
-| 论文标题 | 发表年份 | 发表期刊 | 链接 | 开源代码 | 数据集链接 |
-|---|---|---|---|---|---|
-| Time Series Forecasting via Direct Per-Step Probability Distribution Modeling | 2026 | AAAI | https://arxiv.org/abs/2511.23260 | https://github.com/leonardokong486/interPDN | ETTh1, ETTh2, ETTm1, ETTm2, Electricity, Weather, Traffic, Exchange-rate, Illness |
-
-完整 15 列内容在你实际运行技能时生成。
 
 ## 项目结构
 
@@ -124,11 +107,6 @@ AI 会按 `SKILL.md` 的流程执行：读取 PDF → 逐列提取 → 生成 Ex
     └── agents/
         └── openai.yaml              # Agent 接口声明
 ```
-
-## 测试与验证
-
-- **功能测试**：用 3 篇不同主题的论文（AAAI 2026 概率分布建模 / NeurIPS 2024 时间戳鲁棒预测 / NeurIPS 2024 序列核融合）完整走了一遍流程，验证了中英双语两行表头、15 列 schema、会议名提取、论文链接列（arXiv 编号构造标准链接）、代码链接提取、数据集名称列表、第 14/15 列（未来方向 vs 可提出创新点）的分工；
-- **结构校验**：`python quick_validate.py Papers-Analyzer` → `Skill is valid!`（通过）。
 
 ## License
 
