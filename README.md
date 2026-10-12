@@ -1,111 +1,113 @@
 # Papers-Analyzer
 
-把论文 PDF 一键变成**结构化 Excel 表格**的 AI 技能：上传一篇或多篇论文，它逐篇提取关键信息，每篇论文均可中英双语，链接可点击，开箱即读。
+English | [中文](README.zh-CN.md)
 
-## 项目解决了什么问题
+An AI skill that turns research paper PDFs into a **structured Excel table** in one shot: upload one or more papers, and it extracts key information paper-by-paper — one row per paper, a fixed 15-column bilingual (Chinese/English) header, clickable links, ready to read.
 
-做文献综述、开题报告、组会汇报时，常见的痛点是：
+## What problem this solves
 
-- 十几篇论文要逐篇读、逐篇抄标题/年份/期刊/方法/链接，手工整理一张对比表非常耗时；
-- 手工填表时容易凭印象写错——把不是这篇论文的结论填进去、年份/期刊记错、链接补错；
-- 同一批论文，不同人整理出的表列名不一、详略不一，没法横向对比。
+When doing a literature review, writing a thesis proposal, or preparing for a group meeting, the usual pain points are:
 
-Papers-Analyzer 把这个动作标准化：固定 15 列、一行一篇、每一格都要求能在论文原文里找到出处；找不到就留空，绝不编造。
+- You have to read a dozen papers one by one and manually copy title / year / venue / method / link into a comparison table — very time-consuming;
+- Hand-filled tables are error-prone: conclusions from one paper end up in another's row, years and venues get mixed up, links get wrong;
+- Different people organize the same papers into tables with different column names and levels of detail, making cross-paper comparison impossible.
 
-## 主要功能
+Papers-Analyzer standardizes this: a fixed 15-column schema, one row per paper, and every cell must be traceable to the paper's own text. If a piece of information is not in the paper, the cell stays empty — never fabricated.
 
-- **固定 15 列信息提取**（第 1 行中文表头、第 2 行英文表头，数据从第 3 行开始）：
+## Features
 
-| # | 列名 | 内容 |
-|---|------|------|
-| 1 | 论文标题 | 论文标题原文 |
-| 2 | 发表年份 | 论文刊出年份（会议论文按会议年份） |
-| 3 | 发表期刊 | 期刊名或会议名原文（arXiv 预印本无期刊信息则留空） |
-| 4 | 链接 | 论文本身的链接（arXiv/DOI/出版方 URL，正文未给出则留空） |
-| 5 | 研究目标 | 论文要解决的问题和达到的目的，按主题分条概括研究内容 |
-| 6 | 研究动机 | 现有方法的局限与研究空白，按 Motivation#N 分条说明 |
-| 7 | 创新点及其提出原因 | 每条创新点编号（a1. a2.…），配 Why：说明提出原因 |
-| 8 | 方法优缺点分析 | 优点编号列出、缺点编号列出（均须论文有明确依据） |
-| 9 | 文章结构 | 论文真实章节结构，每章一句话概括 |
-| 10 | 模型架构 | 模型组成部分的文字描述（不提取原图） |
-| 11 | 模型图 | 整列留空，供你自行粘贴从论文截图的模型图（列宽 80） |
-| 12 | 开源代码 | 论文明确给出的代码仓库 URL，未给出则留空 |
-| 13 | 数据集链接 | 论文实验用到的数据集名称（论文给出 URL 时附上） |
-| 14 | 未来发展方向 | 顺着论文方法可自然续写的方向（优先作者 Future Work） |
-| 15 | 基于本文可提出的创新点 | 基于论文明确承认的局限提出的跨范式/跨任务构想 |
+- **Fixed 15-column extraction** (row 1 = Chinese header, row 2 = English header, data starts at row 3):
 
-- **多篇论文一行汇总**：多篇论文一次处理，全部写进同一个 `.xlsx`，一行一篇，顺序与你提供的一致；
-- **输出语言跟随你**：表头永远是中英双语两行；分析类单元格跟随你的提问语言（中文提问写中文，英文提问写英文）。论文标题、期刊名、链接等专有信息始终保留论文原文，不翻译；
-- **Excel 开箱即读**：链接和代码列做成可点击超链接；英文统一 Times New Roman、中文统一宋体。
-- **三条铁律**：
-  1. 只填论文里有的——每个单元格都能在论文中找到出处；
-  2. 找不到就留空——不编造、不猜、不用“无/N/A”占位；
-  3. 不强行凑数量——论文只有 1 个创新点就只写 1 条。
+| # | Column | Content |
+|---|--------|---------|
+| 1 | Paper Title | Original title as printed in the paper |
+| 2 | Year | Publication year (conference year for conference papers) |
+| 3 | Venue | Journal or conference name as printed (left empty if it's an arXiv preprint) |
+| 4 | Link | URL to the paper itself (arXiv/DOI/publisher; empty if not stated in the PDF) |
+| 5 | Research Objectives | What the paper aims to solve, grouped by theme |
+| 6 | Motivations | Limitations of existing methods and the research gap, listed as Motivation#N |
+| 7 | Key Innovations and Why | Each innovation numbered (a1. a2.…) with a "Why:" rationale |
+| 8 | Method: Pros & Cons | Numbered list of strengths and weaknesses, each backed by the paper |
+| 9 | Article Structure | The paper's real section outline, one sentence per section |
+| 10 | Model Architecture | Text description of model components (no diagram extraction) |
+| 11 | Model Diagram | Left empty on purpose — paste your own screenshot here (width 80) |
+| 12 | Open Source Code | Repository URL stated by the paper, if any |
+| 13 | Dataset Link | Dataset names used in experiments (URL attached if the paper gives one) |
+| 14 | Future Development Directions | Natural extensions of the proposed method (prefer the authors' own Future Work) |
+| 15 | Proposed Innovations Based on This Paper | Cross-paradigm / cross-task ideas grounded in the paper's stated limitations |
 
-**明确不支持**：从论文里提取模型架构的**原图**。架构图需要你自己从论文截图，表格中只输出架构的文字描述。扫描版/图片型 PDF 需要先 OCR，本技能不负责 OCR。
+- **Batch papers into one table**: process multiple papers at once, all in a single `.xlsx`, one row per paper, in the order you provide;
+- **Output language follows you**: the header is always bilingual two-row; analysis cells follow the language of your prompt (Chinese prompt → Chinese cells, English prompt → English cells). Titles, venue names, and URLs stay in the paper's original language;
+- **Excel ready to read**: link and code columns are clickable hyperlinks; Latin text uses Times New Roman, Chinese uses SimSun (宋体).
+- **Three iron rules**:
+  1. Only fill what the paper actually says — every cell must be traceable;
+  2. Leave empty if not found — no fabrication, no guessing, no "N/A" placeholders;
+  3. Never pad the count — if the paper has one innovation, write one row.
 
-## 安装方法
+**Not supported**: extracting the model architecture **diagram image**. You screenshot it yourself from the paper; the table only contains a text description. Scanned/image PDFs need OCR first — out of scope.
 
-本项目是一个 **AI 技能（Skill）**，不是命令行工具，不需要 `pip install`，也不需要 Git：
+## Installation
 
-1. 把整个 `Papers-Analyzer/` 文件夹复制到你的 AI 助手所支持的技能目录下（ `.user_skills/` 目录，或其他支持 Skill 机制的平台的对应目录）；
-2. 运行环境需要 **Python 3.8+**，并安装 `openpyxl`（写 Excel）以及 `pdfplumber` 或 `PyMuPDF`（提取 PDF 文本），供 AI 生成表格时使用：
+This project is an **AI skill**, not a CLI tool. No `pip install`, no Git required:
+
+1. Copy the whole `Papers-Analyzer/` folder into your AI assistant's skill directory (e.g. `.user_skills/`, or the equivalent folder on a platform that supports Skills);
+2. The runtime needs **Python 3.8+** with `openpyxl` (writes Excel) and either `pdfplumber` or `PyMuPDF` (extracts PDF text):
 
    ```bash
    pip install openpyxl pdfplumber
    ```
 
-3. 安装完成后无需额外配置，在对话中按“使用方法”发起任务即可。
+3. No further configuration. Just start asking as described below.
 
-目录结构：
+Directory layout:
 
 ```
 Papers-Analyzer/
-├── SKILL.md               # 技能定义与完整工作流程
+├── SKILL.md               # Skill definition and full workflow
 └── agents/
-    └── openai.yaml        # Agent 接口声明（显示名、默认提示词）
+    └── openai.yaml        # Agent manifest (display name, default prompt)
 ```
 
-## 使用方法
+## Usage
 
-技能就位后，在对话中直接提出任务即可，不需要记任何命令。
+Once the skill is in place, just describe the task in chat — no commands to remember.
 
-**方式一：上传 PDF 文件**
+**Option 1: upload PDF files**
+
+```
+Turn these papers into an Excel table
+(attach the PDF files)
+```
+
+**Option 2: give a paper URL**
+
+```
+Extract the paper at https://.../paper.pdf into a 15-column table
+```
+
+**Option 3: Chinese prompt → Chinese cells**
 
 ```
 帮我把这几篇论文整理成 Excel 表格
-（同时上传论文 PDF 文件）
 ```
 
-**方式二：给出论文链接**
+The AI follows the workflow in `SKILL.md`: read PDF → extract column by column → generate Excel → verify every cell against the source before delivery.
 
-```
-把 https://.../paper.pdf 这篇论文提取成 14 列表格
-```
+**Input**: one or more PDF files (local paths), or direct PDF links (publisher site, arXiv, etc.). Text-based PDFs only.
 
-**方式三：英文提问，自动得到英文表**
+**Output**: a single `.xlsx` file, bilingual header, one row per paper. English prompts produce `paper_info_table_YYYYMMDD.xlsx`; Chinese prompts produce `论文信息表_YYYYMMDD.xlsx`.
 
-```
-Turn this paper (attached PDF) into a 14-column Excel table.
-```
-
-AI 会按 `SKILL.md` 的流程执行：读取 PDF → 逐列提取 → 生成 Excel → 交付前逐格核对出处。
-
-**输入**：一个或多个论文 PDF 文件（本地路径），或可直接下载的 PDF 链接（期刊官网、arXiv 等）；仅支持文本型 PDF。
-
-**输出**：一个 `.xlsx` 文件，中英双语，每篇论文一行。中文提问时文件名为 `论文信息表_YYYYMMDD.xlsx`；英文提问时为 `paper_info_table_YYYYMMDD.xlsx`。
-
-
-## 项目结构
+## Project structure
 
 ```
 .
-├── README.md                        # 本文档
+├── README.md                        # This file (English)
+├── README.zh-CN.md                  # Chinese version
 ├── LICENSE                          # MIT
-└── Papers-Analyzer/                 # 技能本体（可独立分发/开源）
-    ├── SKILL.md                     # 技能定义与完整工作流程
+└── Papers-Analyzer/                 # The skill itself
+    ├── SKILL.md                     # Skill definition and workflow
     └── agents/
-        └── openai.yaml              # Agent 接口声明
+        └── openai.yaml              # Agent manifest
 ```
 
 ## License
