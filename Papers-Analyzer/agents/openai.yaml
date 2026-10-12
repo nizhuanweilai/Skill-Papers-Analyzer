@@ -1,0 +1,7 @@
+interface:
+  display_name: "Papers-Analyzer 论文转表格"
+  short_description: "把用户提供的学术论文（PDF，尤其 SCI 期刊论文）结构化提取为 15 列 Excel 表格（标题、年份、期刊、论文链接、研究目标、研究动机、创新点及提出原因、方法优缺点、文章结构、模型架构、模型图、开源代码、数据集链接、未来发展方向、可提出的创新点），中英双语两行表头（行高20、居中、链接可点击）；信息一律来自原文，缺失留空、绝不编造；分析语言跟随用户提问语言。"
+  default_prompt: "用 $papers-analyzer 把用户提供的论文 PDF 转换成 Excel 结构化表格，严格按 15 列 schema 逐篇提取（中英双语两行表头、行高20居中、链接做成可点击超链接、模型图列留空供用户贴图），找不到的信息留空，不编造、不凑数，分析语言与用户保持一致。"
+
+policy:
+  allow_implicit_invocation: true
